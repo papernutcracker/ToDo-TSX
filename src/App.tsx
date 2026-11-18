@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import type { Todo, SortOrder } from "./types";
+import type { Todo, SortOrder, Priority } from "./types";
+import Counter from "./components/Counter";
+import styles from "./components/App.module.css";
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>(() => {
@@ -29,19 +31,21 @@ const App: React.FC = () => {
     document.title = `Задач: ${totalCount} | Todo App`;
   }, [totalCount]);
 
-  const handleAddTodo = (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed) return;
+  const handleAddTodo = (text: string, priority: Priority, deadline: string) => {
+  const trimmed = text.trim();
+  if (!trimmed) return;
 
-    const newTodo: Todo = {
-      id: Date.now(),
-      text: trimmed,
-      completed: false,
-    };
-
-    setTodos((prev) => [...prev, newTodo]);
-    setInputValue("");
+  const newTodo: Todo = {
+    id: Date.now(),
+    text: trimmed,
+    completed: false,
+    priority,
+    deadline: deadline || undefined,
   };
+
+  setTodos((prev) => [...prev, newTodo]);
+  setInputValue("");
+};
 
   const handleDeleteTodo = (id: number) => {
     setTodos((prev) => prev.filter((t) => t.id !== id));
@@ -62,10 +66,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <main className="todo-app">
-      <header className="app-header">
+    <main className={styles["todo-app"]}>
+      <header className={styles["app-header"]}>
         <h1>Todo List</h1>
-        <p className="subtitle">Організуй свої щоденні справи та завдання</p>
+        <p className={styles["subtitle"]}>Організуй свої щоденні справи та завдання</p>
       </header>
 
       <TodoForm
@@ -76,12 +80,7 @@ const App: React.FC = () => {
         sortOrder={sortOrder}
       />
 
-      <div className="counter">
-        <span className="counter-label">Всього завдань:</span>
-        <span id="todo-count">
-          {totalCount} {completedCount > 0 && `(виконано: ${completedCount})`}
-        </span>
-      </div>
+      <Counter totalCount={totalCount} completedCount={completedCount}/>
 
       <TodoList
         todos={displayedTodos}

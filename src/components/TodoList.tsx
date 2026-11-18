@@ -1,6 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 import type { Todo } from "../types";
+import styles from "./TodoList.module.css";
 
 interface TodoListProps {
   todos: Todo[];
@@ -10,7 +11,7 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onDelete }) => {
   return (
-    <div id="todo-list" className="todo-container">
+    <div id="todo-list" className={styles["todo-container"]}>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

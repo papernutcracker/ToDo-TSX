@@ -1,0 +1,151 @@
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-left-width: 4px;
+  border-radius: var(--radius-item);
+  box-shadow: var(--shadow-item);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: itemSlide 0.22s ease-out forwards;
+}
+
+/* Пріоритети (ліва рамка) */
+.low {
+  border-left-color: #22c55e;
+}
+.normal {
+  border-left-color: #3b82f6;
+}
+.high {
+  border-left-color: #ef4444;
+}
+
+/* Виконане завдання */
+.completed {
+  background: #f8fafc;
+  opacity: 0.6;
+}
+.completed .text {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+/* Прострочене завдання */
+.overdue {
+  background: #fef2f2;
+  border-color: #fecaca;
+  border-left-color: #dc2626;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.checkbox:active {
+  transform: scale(0.9);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+
+/* Бейджі пріоритету */
+.tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.tag-low {
+  background: #dcfce7;
+  color: #15803d;
+}
+.tag-normal {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.tag-high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.deadline {
+  color: var(--text-muted);
+}
+
+.overdue-badge {
+  background: #dc2626;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* Кнопка видалення */
+.delete-button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  border: 1px solid var(--danger-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.delete-button:hover {
+  background: var(--danger-hover);
+  color: #ffffff;
+  border-color: var(--danger-hover);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  transform: scale(1.02);
+}
+
+.delete-button:active {
+  transform: scale(0.98);
+}
+
+@keyframes itemSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

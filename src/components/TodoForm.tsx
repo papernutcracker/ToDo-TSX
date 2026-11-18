@@ -1,10 +1,11 @@
-import React from "react";
-import type { SortOrder } from "../types";
+import React, { useState } from "react";
+import type { Priority, SortOrder } from "../types";
+import styles from "./TodoForm.module.css";
 
 interface TodoFormProps {
   inputValue: string;
   onInputChange: (value: string) => void;
-  onAdd: (text: string) => void;
+  onAdd: (text: string, priority: Priority, deadline: string) => void;
   onToggleSort: () => void;
   sortOrder: SortOrder;
 }
@@ -16,39 +17,63 @@ const TodoForm: React.FC<TodoFormProps> = ({
   onToggleSort,
   sortOrder,
 }) => {
+  const [priority, setPriority] = useState<Priority>("normal");
+  const [deadline, setDeadline] = useState<string>("");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAdd(inputValue);
+    if (!inputValue.trim()) return;
+    onAdd(inputValue, priority, deadline);
+    setPriority("normal");
+    setDeadline("");
   };
 
   const sortLabel =
-    sortOrder === "asc"
-      ? "Сортування: А-Я"
-      : sortOrder === "desc"
-      ? "Сортування: Я-А"
-      : "Сортувати";
+    sortOrder === "asc" ? "А-Я" : sortOrder === "desc" ? "Я-А" : "Сортувати";
 
   return (
-    <form className="controls" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        id="todo-input"
-        placeholder="Що потрібно зробити?"
-        value={inputValue}
-        onChange={(e) => onInputChange(e.target.value)}
-        autoComplete="off"
-      />
-      <button type="submit" id="add-button" title="Додати задачу">
-        <span className="btn-icon">＋</span> Додати
-      </button>
-      <button
-        type="button"
-        id="sort-button"
-        onClick={onToggleSort}
-        title="Сортувати за алфавітом"
-      >
-        <span className="btn-icon">⇅</span> {sortLabel}
-      </button>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.row}>
+        <input
+          type="text"
+          className={styles.input}
+          placeholder="Що потрібно зробити?"
+          value={inputValue}
+          onChange={(e) => onInputChange(e.target.value)}
+          autoComplete="off"
+        />
+        <button type="submit" className={styles["add-button"]}>
+          ＋ Додати
+        </button>
+      </div>
+
+      <div className={styles.row}>
+        <select
+          className={styles.select}
+          value={priority}
+          onChange={(e) => setPriority(e.target.value as Priority)}
+        >
+          <option value="low">🟢 Низький</option>
+          <option value="normal">🔵 Звичайний</option>
+          <option value="high">🔴 Високий</option>
+        </select>
+
+        <input
+          type="datetime-local"
+          className={styles.datetime}
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
+          title="Дедлайн завдання"
+        />
+
+        <button
+          type="button"
+          className={styles["sort-button"]}
+          onClick={onToggleSort}
+        >
+          ⇅ {sortLabel}
+        </button>
+      </div>
     </form>
   );
 };

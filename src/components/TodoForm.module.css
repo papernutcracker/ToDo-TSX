@@ -1,0 +1,121 @@
+/* Controls Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Поле вводу, пріоритет та дедлайн */
+.input,
+.select,
+.datetime {
+  padding: 11px 14px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background: #f8fafc;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.select,
+.datetime {
+  flex: 1;
+  min-width: 140px;
+  cursor: pointer;
+}
+
+.input:focus,
+.select:focus,
+.datetime:focus {
+  background: #ffffff;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3.5px rgba(99, 102, 241, 0.15);
+}
+
+/* Buttons (обмежено тільки для цієї форми) */
+.form button {
+  padding: 11px 18px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.btn-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.add-button {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--primary-shadow);
+}
+
+.add-button:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+}
+
+.add-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px var(--primary-shadow);
+}
+
+.sort-button {
+  background: #f8fafc;
+  color: #334155;
+  border: 1.5px solid var(--border-light);
+}
+
+.sort-button:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  transform: translateY(-1.5px);
+}
+
+.sort-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments для форми */
+@media (max-width: 480px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .input,
+  .select,
+  .datetime,
+  .form button {
+    width: 100%;
+  }
+}
